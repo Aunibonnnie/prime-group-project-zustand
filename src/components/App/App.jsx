@@ -10,13 +10,16 @@ import Nav from '../Nav/Nav';
 import HomePage from '../HomePage/HomePage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import TestPage from '../TestPage/TestPage';
+import SearchPage from '../SearchPage/SearchPage';
 
 function App() {
   const user = useStore((state) => state.user);
   const fetchUser = useStore((state) => state.fetchUser);
+  const fetchEvent = useStore((state) => state.fetchEvent)
 
   useEffect(() => {
+    fetchEvent();
     fetchUser();
   }, [fetchUser]);
 
@@ -58,6 +61,8 @@ function App() {
               )
             }
           />
+             <Route path="/test" element={<TestPage />} /> 
+             <Route path="/search" element={<SearchPage />} /> 
           <Route 
             exact path="/about"
             element={

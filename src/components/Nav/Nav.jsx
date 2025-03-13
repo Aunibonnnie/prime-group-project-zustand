@@ -33,6 +33,12 @@ function Nav() {
         <li>
           <NavLink to="/about">About</NavLink>
         </li>
+        <li>
+          <NavLink to="/test">Test</NavLink>
+        </li>
+        <li>
+          <NavLink to="/search">Search</NavLink>
+        </li>
       </ul>
     </nav>
   );

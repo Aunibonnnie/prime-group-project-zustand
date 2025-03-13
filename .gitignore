@@ -66,3 +66,14 @@ typings/
 
 # ignore package-lock as it complicates merging
 package-lock.json
+
+// <p>{ JSON.stringify( testList ) }</p>
+// <td><button onClick={ ()=>{ deleteMe( item.id ) }}>Delete</button></td>
+// { test.map( ( test, index )=>(
+//   <TestPage key={index} item={ test }/>
+//   ))}
+
+// <ul>
+// {testList.map(( item ) => (
+//   <li key={item.id}>Username: {item.name} Zip:{item.zip} Date:{item.inserted_at}</li>))}
+// </ul>

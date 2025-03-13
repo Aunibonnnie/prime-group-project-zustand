@@ -1,0 +1,37 @@
+
+h2{
+  margin: 10px;
+}
+
+table {
+  margin: 10px;
+  border-collapse: collapse;
+  border: 1px solid black;
+  width: 800px;
+  height: 200px;
+}
+
+table, th, td {
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+
+button {
+float: center;
+margin: 10px;
+}
+
+select {
+  float: center;
+  margin: 10px;
+  padding: 5px;
+  }
+
+  input, select, button {
+    display: inline-block;
+    margin: 5px;
+  }
+  
+
+
