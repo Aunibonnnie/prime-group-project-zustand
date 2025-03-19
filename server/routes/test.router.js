@@ -8,8 +8,9 @@ const pool = require('../modules/pool');
     const queryString = `SELECT test.id AS "id",
 test.name AS "name",
 test.status AS "status",
-test.zip AS "zip",
+test.description AS "description",
 test.location AS "location",
+test.school AS "school",
 TO_CHAR(test.inserted_at, 'MM-DD-YYYY') AS "inserted"
 FROM "test";`;
     pool.query(queryString).then(( results )=> {
@@ -34,8 +35,8 @@ router.get( '/search', ( req, res )=>{
 // POST
 router.post('/', (req, res)=> {
   console.log( '/api/test POST:', req.body, req.query );
-  const queryString = `INSERT INTO "test" ("name", "zip", "location", "inserted_at") VALUES ($1, $2, $3, NOW() );`;
-  const values = [ req.body.name, req.body.zip, req.body.location ];
+  const queryString = `INSERT INTO "test" ( "name", "description", "location", "school", "inserted_at") VALUES ($1, $2, $3, $4, NOW() );`;
+  const values = [ req.body.name, req.body.description, req.body.location, req.body.school ];
   pool.query(queryString, values ).then( ( results )=>{
       res.sendStatus( 201 );
   }).catch((err)=>{

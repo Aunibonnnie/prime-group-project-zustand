@@ -6,7 +6,8 @@ import './TestPage.css';
 function TestPage () {
   const [ testList, setTestList ] = useState( [] );
   const fetchEvent = useStore((state) => state.fetchEvent)
-  const [ newTest, setNewTest ] = useState( { name:'', zip:'', location: 0 } ); 
+  const [ newTest, setNewTest ] = useState( { name:'', description:'', location:'', school: [] } ); 
+
 
   useEffect(() => {
     fetchEvent()
@@ -23,7 +24,6 @@ function TestPage () {
       alert( 'error getting test list' );
     })
   }
-
 
     function createNewTest () { 
       console.log( 'in createNewTest' );
@@ -46,23 +46,28 @@ function TestPage () {
 
   return (
     <div>
-      <input type="text" placeholder='name' onChange={ (e)=>{ setNewTest( {...newTest, name: e.target.value } ) } } />
-      <input type="text" placeholder='zip' onChange={ (e)=>{ setNewTest( {...newTest, zip: e.target.value } ) } } />
-      <select onChange={ (e)=>{ setNewTest( {...newTest, location: Number( e.target.value ) } ) } }>
-                <option value="0">Elk River High School</option>
-                <option value="1">Rodgers High School</option>
-                <option value="2">Praireview High School</option>
-                <option value="3">Zimmeran High School</option>
-                <option value="4">Otsegol High School</option>
+      <input type="text" placeholder='Name' onChange={ (e)=>{ setNewTest( {...newTest, name: e.target.value } ) } } />
+      <input type="text" placeholder='Description' onChange={ (e)=>{ setNewTest( {...newTest, description: e.target.value } ) } } />
+      <input type="text" placeholder='Location' onChange={ (e)=>{ setNewTest( {...newTest, location: e.target.value } ) } } />
+      <form>
+      <label for="school">Choose a school</label>
+      <select id="school" multiple onChange={ (e)=>{ setNewTest ({ ...newTest, school: Array.from( e.target.selectedOptions, option => Number(option.value))})}}>
+        {Object.entries(schoolNames).map(([id, school]) =>(
+          <option key={id} value={id}>
+            {school}
+          </option>
+        ))}
       </select>
+      </form>
       <button onClick={ createNewTest }>Create</button>
       <h2>Test List</h2>
         <table>
           <thead>
             <tr>
               <th>Username</th>
-              <th>Zip</th>
+              <th>Description</th>
               <th>Location</th>
+              <th>School</th>
               <th>Date</th>
             </tr>
           </thead>
@@ -71,8 +76,11 @@ function TestPage () {
               testList.map(( item ) => (
                 <tr key={item.id}>
                   <td><p>{item.name}</p></td>
-                  <td><p>{item.zip}</p></td>
-                  <td><p>{schoolNames[item.location] || "Unknown School"}</p></td>
+                  <td><p>{item.description}</p></td>
+                  <td><p>{item.location}</p></td>
+                  <td>
+                  {item.school?.map((schoolId) => (
+                  <p key={schoolId}>{schoolNames[schoolId] || 'Unknown School'}</p>)) || <p>No school assigned</p>}</td>
                   <td><p>{item.inserted}</p></td>
                 </tr>
               ))
@@ -85,3 +93,17 @@ function TestPage () {
 }
 
 export default TestPage
+
+// Simple form of dropdown select 1
+// <form>
+// <label for="school">Choose a school</label>
+// <select id="school" multiple onChange={ (e)=>{ setNewTest( {...newTest, school: Number( e.target.value ) } ) } }>
+//         <option value="0">Elk River High School</option>
+//         <option value="1">Rodgers High School</option>
+//         <option value="2">Praireview High School</option>
+//         <option value="3">Zimmeran High School</option>
+//         <option value="4">Otsegol High School</option>
+// </select>
+// </form>
+// For testList.map <td><p></p></td>
+// <td><p>{schoolNames[item.school] || "Unknown School"}</p></td> 
