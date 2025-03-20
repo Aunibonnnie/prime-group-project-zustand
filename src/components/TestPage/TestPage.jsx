@@ -7,7 +7,7 @@ function TestPage () {
   const [ testList, setTestList ] = useState( [] );
   const fetchEvent = useStore((state) => state.fetchEvent)
   const [ newTest, setNewTest ] = useState( { name:'', description:'', location:'', school: [] } ); 
-
+  const [addSchool, setAddSchool] = useState("");
 
   useEffect(() => {
     fetchEvent()
@@ -36,6 +36,17 @@ function TestPage () {
       })
   }
 
+//   function addSchool() {
+//     console.log( 'in addSchool');
+//     axios.post( '/api/test', { school: [addSchools]}).then(function(response){
+//       console.log(response.data);
+//       fetchEvent();
+//     }).catch( function( err ){
+//       console.log( err );
+//       alert( 'error creating new todo' );
+//   })
+// }
+
   const schoolNames = {
     0: "Elk Rivers High School",
     1: "Rodgers High School",
@@ -49,6 +60,8 @@ function TestPage () {
       <input type="text" placeholder='Name' onChange={ (e)=>{ setNewTest( {...newTest, name: e.target.value } ) } } />
       <input type="text" placeholder='Description' onChange={ (e)=>{ setNewTest( {...newTest, description: e.target.value } ) } } />
       <input type="text" placeholder='Location' onChange={ (e)=>{ setNewTest( {...newTest, location: e.target.value } ) } } />
+      <input type="text" placeholder='Add School' onChange={(e)=> setAddSchool(e.target.value)}/>
+      <button onClick={addSchool}>Add School</button>
       <form>
       <label for="school">Choose a school</label>
       <select id="school" multiple onChange={ (e)=>{ setNewTest ({ ...newTest, school: Array.from( e.target.selectedOptions, option => Number(option.value))})}}>
